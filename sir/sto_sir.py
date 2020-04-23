@@ -14,9 +14,9 @@ import random
 # /=========================================================================
 # globals
 
-k = 0.3
-N = 1000
-gamma = 0.1
+k = 0.5
+N = 10000
+gamma = 0.2
 r_0 = k/gamma
 
 S_0 = N
@@ -116,8 +116,8 @@ def build_mats(S_set=None, I_set=None, R_set=None):
 
 
 if __name__ == "__main__":
-    num_steps, time_step = 10000, 0.01
-    num_trials = 250
+    num_steps, time_step = 70000, 0.001
+    num_trials = 150
 
     # build a set of many trials
     S_set, I_set, R_set = many_trials_sir(num_trials=num_trials,
