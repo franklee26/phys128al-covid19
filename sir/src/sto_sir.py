@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 '''
 Frank Lee
 22/4
@@ -10,6 +10,9 @@ goal: using a markov-chain for stochastic considerations
 import numpy as np
 import matplotlib.pyplot as plt
 import random
+import sys
+from ast import literal_eval
+import json
 
 # /=========================================================================
 # globals
@@ -116,12 +119,27 @@ def build_mats(S_set=None, I_set=None, R_set=None):
 
 
 if __name__ == "__main__":
-    num_steps, time_step = 70000, 0.001
-    num_trials = 150
+    print("Starting py script...")
+    inputs = []
+    counter = 0
+    S_set, I_set, R_set = None, None, None
+    print("Parsing...")
+    for line in sys.stdin:
+        if counter == 0:
+            S_set = json.loads(line)
+        elif counter == 1:
+            I_set = json.loads(line)
+        else:
+            R_set = json.loads(line)
+        counter += 1
+
+    # hard coded from rust
+    num_steps, time_step = 75000, 0.0009
+    num_trials = 300
 
     # build a set of many trials
-    S_set, I_set, R_set = many_trials_sir(num_trials=num_trials,
-                                          num_steps=num_steps, time_step=time_step)
+    # S_set, I_set, R_set = many_trials_sir(num_trials=num_trials,
+    #                                       num_steps=num_steps, time_step=time_step)
 
     # for conv. store as matrixes
     S_mat, I_mat, R_mat = build_mats(S_set, I_set, R_set)
